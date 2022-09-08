@@ -2,23 +2,30 @@ import React,{Fragment, useState} from 'react';
 
 const Formulario = ({guardarClientes}) =>{
 
+    const [error,setError] = useState(false);
+
     const [cliente,actualizarCliente] = useState([
         {
-          nombre:'',
-          identidad:'',
-          placa:'',
-          horaEntrada:'',
-          fecha:''
+          nombre:' ',
+          identidad:' ',
+          placa:' ',
+          horaEntrada:' ',
+          fecha:' '
         }
       ]);
-
+      console.log();
     const {nombre,identidad,placa,horaEntrada,fecha} = cliente;
+    
 
     const setNewClient = (e) =>{
         e.preventDefault();     
+
+             
         
-        if(nombre === ''){
-            alert('El nombre se encuentra vacio');
+
+        if(nombre.trim() === '' || identidad.trim()=== '' || placa.trim()=== '' || horaEntrada.trim()=== '' || fecha.trim()){
+            alert('Pero que a pasao AP');
+            setError(true);
         }      
 
     }
@@ -37,6 +44,8 @@ const Formulario = ({guardarClientes}) =>{
             <form
             onSubmit={setNewClient}
             >
+                {error ?<p className='alerta-error'>Todos los campos son obligatorios</p> : <p>Todo ok</p>}
+
                 <label>Cliente</label>
                 <input 
                 type="text" 
@@ -53,6 +62,7 @@ const Formulario = ({guardarClientes}) =>{
                 placeholder='Identidad cliente'
                 value={identidad}
                 name = 'identidad'
+                onChange={actualizarState}
                 >
                 </input>
 
@@ -62,6 +72,7 @@ const Formulario = ({guardarClientes}) =>{
                 placeholder='Identidad cliente'
                 value={placa}
                 name= 'placa'
+                onChange={actualizarState}
                 >
                 </input>
 
@@ -71,6 +82,7 @@ const Formulario = ({guardarClientes}) =>{
                  placeholder='Identidad cliente'
                  value={horaEntrada}
                  name = 'horaEntrada'
+                 onChange={actualizarState}
                  >
                  </input>
 
@@ -79,6 +91,7 @@ const Formulario = ({guardarClientes}) =>{
                 placeholder='Identidad cliente'
                 value = {fecha}
                 name = 'fecha'
+                onChange={actualizarState}
                 >
 
                 </input>       
