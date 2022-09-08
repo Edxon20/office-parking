@@ -1,16 +1,17 @@
 import React,{Fragment, useState} from 'react';
+import shortid from 'shortid';
 
-const Formulario = ({guardarClientes}) =>{
+const Formulario = ({crearCliente}) =>{
 
     const [error,setError] = useState(false);
 
     const [cliente,actualizarCliente] = useState([
         {
-          nombre:' ',
-          identidad:' ',
-          placa:' ',
-          horaEntrada:' ',
-          fecha:' '
+          nombre:'',
+          identidad:'',
+          placa:'',
+          horaEntrada:'',
+          fecha:''
         }
       ]);
       console.log();
@@ -18,15 +19,27 @@ const Formulario = ({guardarClientes}) =>{
     
 
     const setNewClient = (e) =>{
-        e.preventDefault();     
-
-             
+        e.preventDefault();                 
         
 
-        if(nombre.trim() === '' || identidad.trim()=== '' || placa.trim()=== '' || horaEntrada.trim()=== '' || fecha.trim()){
-            alert('Pero que a pasao AP');
+        if(nombre.trim() === '' || identidad.trim()=== '' || placa.trim()=== '' || horaEntrada.trim()=== '' || fecha.trim()=== ''){
+            console.log(nombre);
+            console.log(horaEntrada);
             setError(true);
+            return;
         }      
+        setError(false);
+        cliente.key = shortid();
+        crearCliente(cliente);
+
+
+        actualizarCliente({
+          nombre:'',
+          identidad:'',
+          placa:'',
+          horaEntrada:'',
+          fecha:''
+        });
 
     }
 
@@ -44,7 +57,7 @@ const Formulario = ({guardarClientes}) =>{
             <form
             onSubmit={setNewClient}
             >
-                {error ?<p className='alerta-error'>Todos los campos son obligatorios</p> : <p>Todo ok</p>}
+                {error ?<p className='alerta-error'>Todos los campos son obligatorios</p> : null}
 
                 <label>Cliente</label>
                 <input 
